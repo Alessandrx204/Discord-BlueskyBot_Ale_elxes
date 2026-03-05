@@ -44,7 +44,7 @@ cd ~/Documenti/Workspace/discord_bluesky_ale
 #### 2. Create Environment File
 
 ```bash
-cp .env.example .env
+cp .env .env
 ```
 
 Edit `.env` with your credentials:

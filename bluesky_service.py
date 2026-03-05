@@ -4,7 +4,8 @@ import json
 import logging
 from datetime import datetime, timezone
 from typing import Any, Dict
-
+from dotenv import load_dotenv
+load_dotenv()
 from atproto import Client
 
 logger = logging.getLogger(__name__)

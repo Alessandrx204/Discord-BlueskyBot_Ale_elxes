@@ -7,6 +7,7 @@ from logger import setup_logger
 from bluesky_service import BlueskyService, PostLogger
 from discord_bot import DiscordBot
 
+
 # Setup logging
 logger = setup_logger(
     "discord_bluesky_bot",
