@@ -19,6 +19,8 @@ class Config:
         self.max_post_length: int = self._get_env_int("MAX_POST_LENGTH", 300)
         self.log_file: str = self._get_env("LOG_FILE", "posts_log.json")
         self.log_level: str = self._get_env("LOG_LEVEL", "INFO")
+        self.bluesky_footer_txt: str = self._get_env("FOOTER_TXT")
+
 
     @staticmethod
     def _get_env(key: str, default: Optional[str] = None) -> str:

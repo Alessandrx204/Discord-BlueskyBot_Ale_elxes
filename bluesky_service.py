@@ -7,14 +7,15 @@ from typing import Any, Dict
 from dotenv import load_dotenv
 load_dotenv()
 from atproto import Client
-
+from config import config
 logger = logging.getLogger(__name__)
 
 
 class BlueskyService:
     """Service for interacting with Bluesky API."""
 
-    FOOTER_TEXT = "*This is an automated account and does not respond to messages.*"
+    # Footer text loaded from the shared config instance
+    FOOTER_TEXT = config.bluesky_footer_txt
 
     def __init__(self, username: str, password: str) -> None:
         """Initialize Bluesky service and authenticate.

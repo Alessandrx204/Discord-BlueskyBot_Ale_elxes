@@ -23,7 +23,7 @@ def main() -> None:
         # Initialize services
         bluesky_service = BlueskyService(
             username=config.bluesky_username,
-            password=config.bluesky_password,
+            password=config.bluesky_password
         )
         post_logger = PostLogger(log_file=config.log_file)
         
