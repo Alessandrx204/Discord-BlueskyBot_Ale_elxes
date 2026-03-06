@@ -146,3 +146,7 @@ This can happen on first run. Wait a moment and try the command again in Discord
 ## License
 
 MIT
+
+## CREDITS
+
+(ELXES04)[https://github.com/Elxes04] nice friend and IT teacher
