@@ -1,10 +1,11 @@
 # Discord-Bluesky Bot
 
-A modular Discord bot that posts messages to Bluesky using slash commands.
+A modular Discord bot that posts messages to Bluesky and Telegram using slash commands.
 
 ## Features
 
-- **Slash Commands**: Easy-to-use `/post` command in Discord
+- **Slash Commands**: Easy-to-use `/bs_post` command in Discord for Bluesky
+- **Slash Commands**: Easy-to-use `/tg_post` command in Discord for Telegram
 - **Bluesky Integration**: Automatically posts messages to Bluesky
 - **Logging**: Comprehensive logging with file persistence
 - **Input Validation**: Validates message length and content
@@ -17,7 +18,8 @@ A modular Discord bot that posts messages to Bluesky using slash commands.
 .
 ├── config.py            # Configuration management
 ├── logger.py            # Logging setup
-├── bluesky_service.py   # Bluesky API service
+├── bluesky_service.py   # Bluesky API service via Atproto
+├── telegram_service.py   # Telegram bot API service via Python-telegram-bot lib
 ├── discord_bot.py       # Discord bot implementation
 ├── main.py              # Application entry point
 ├── shell.nix            # NixOS development environment
@@ -29,7 +31,7 @@ A modular Discord bot that posts messages to Bluesky using slash commands.
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.11+ (£.12 is reccomended)
 - Discord Bot Token
 - Bluesky Account (with App Password)
 
@@ -53,6 +55,11 @@ DISCORD_TOKEN=your_token_here
 DISCORD_CHANNEL_ID=your_channel_id
 BLUESKY_USERNAME=your_handle.bsky.social
 BLUESKY_PASSWORD=your_app_password
+TELEGRAM_TOKEN=your_token_here
+TG_CHANNEL_ID=your_channel_id
+TG_USERNAME=your telegram bot handle(Optional)
+BS_FOOTER_TXT=a footer text to apply to every post you make on bluesky social(can be a slogan a disclaime, and adv or empy string)
+TG_FOOTER_TXT= Same as BS_FOOTER_TXT but for Telegram posts
 ```
 
 #### 3a. On NixOS
