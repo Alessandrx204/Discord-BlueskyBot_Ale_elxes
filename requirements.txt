@@ -1,4 +1,5 @@
+#Python == 3.12
 discord.py==2.3.2
 atproto==0.0.65
 python-dotenv==1.0.0
-Python==3.12
+python-telegram-bot==22.6

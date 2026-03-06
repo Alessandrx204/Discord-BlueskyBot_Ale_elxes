@@ -19,7 +19,11 @@ class Config:
         self.max_post_length: int = self._get_env_int("MAX_POST_LENGTH", 300)
         self.log_file: str = self._get_env("LOG_FILE", "posts_log.json")
         self.log_level: str = self._get_env("LOG_LEVEL", "INFO")
-        self.bluesky_footer_txt: str = self._get_env("FOOTER_TXT")
+        self.bluesky_footer_txt: str = self._get_env("BS_FOOTER_TXT")
+        self.telegram_token: str = self._get_env("TELEGRAM_TOKEN")
+        self.telegram_username: str = self._get_env("TELEGRAM_USERNAME")
+        self.telegram_channel_id: str = self._get_env("TG_CHANNEL_ID")
+        self.telegram_footer_txt: str = self._get_env("TG_FOOTER_TXT")
 
 
     @staticmethod

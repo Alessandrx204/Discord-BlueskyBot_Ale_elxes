@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 class BlueskyService:
     """Service for interacting with Bluesky API."""
 
-    # Footer text is loaded from the config.py file
-    FOOTER_TEXT: str = config.bluesky_footer_txt
+    # Footer text loaded from the shared config instance
+    FOOTER_TEXT = config.bluesky_footer_txt
 
     def __init__(self, username: str, password: str) -> None:
         """Initialize Bluesky service and authenticate.
@@ -110,3 +110,5 @@ class PostLogger:
             logger.info(f"Post logged to {self.log_file}")
         except Exception as e:
             logger.error(f"Failed to log post: {e}")
+
+

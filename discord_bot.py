@@ -9,6 +9,7 @@ from discord import app_commands
 
 from bluesky_service import BlueskyService, PostLogger
 from config import config
+from telegram_service import send_to_telegram
 
 logger = logging.getLogger(__name__)
 
@@ -51,12 +52,9 @@ class DiscordBot:
 
     def _setup_commands(self) -> None:
         """Register slash commands."""
-        @self.bot.tree.command(
-            name="post",
-            description="Post a message to Bluesky",
-        )
+        @self.bot.tree.command(name="bs_post", description="Post a message to Bluesky",)
         @app_commands.describe(text="The text to post on Bluesky")
-        async def slash_post(interaction: discord.Interaction, text: str) -> None:
+        async def slash_bs_post(interaction: discord.Interaction, text: str) -> None:
             """Slash command to post to Bluesky.
             
             Args:
@@ -94,6 +92,48 @@ class DiscordBot:
                 logger.error(f"Failed to post: {e}")
                 await interaction.followup.send(
                     f"❌ Failed to post to Bluesky: {str(e)}",
+                )
+        #-----TELEGRAM HANDLER-----
+        @self.bot.tree.command(name="tg_post",description="Post a message to Telegram",)
+        @app_commands.describe(text="The text to post on Telegram")
+        async def slash_tg_post(interaction: discord.Interaction, text: str) -> None:
+            """Slash command to post a message to Telegram.
+
+            Args:
+                interaction: The Discord interaction that invoked the command.
+                text: The text to send to Telegram.
+            """
+            # Validate input
+            validation_error = self._validate_post_content(text)
+            if validation_error:
+                await interaction.response.send_message(
+                    validation_error,
+                    ephemeral=True,
+                )
+                return
+
+            # Defer response because sending may take a moment
+            await interaction.response.defer()
+
+            try:
+                # Send the text to Telegram
+                await send_to_telegram(text)
+
+                # Send success feedback
+                await interaction.followup.send(
+                    f"✅ Successfully posted to Telegram!\n\n**Posted text:**\n{text}"
+                )
+
+                logger.info(
+                    "Telegram command executed successfully by %s",
+                    interaction.user,
+                )
+
+            except Exception as e:
+                logger.exception("Failed to post to Telegram")
+
+                await interaction.followup.send(
+                    f"❌ Failed to post to Telegram: {e}"
                 )
 
     @staticmethod

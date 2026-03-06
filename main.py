@@ -25,6 +25,7 @@ def main() -> None:
             username=config.bluesky_username,
             password=config.bluesky_password
         )
+
         post_logger = PostLogger(log_file=config.log_file)
         
         # Initialize and run bot
