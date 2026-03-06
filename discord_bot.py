@@ -49,92 +49,63 @@ class DiscordBot:
                 logger.info(f"Synchronized {len(synced)} slash commands")
             except Exception as e:
                 logger.error(f"Failed to sync commands: {e}")
-
+# commands start here at 53
     def _setup_commands(self) -> None:
         """Register slash commands."""
-        @self.bot.tree.command(name="bs_post", description="Post a message to Bluesky",)
+
+        # ── helpers interni ──────────────────────────────────────────────────
+
+        async def _do_post(
+                self,
+                interaction: discord.Interaction,
+                text: str,
+                *, #free for hypothetical other platforms eg. mastodon, reddit,  twitter(not X)...
+                post_to_bluesky: bool = False,
+                post_to_telegram: bool = False,
+        ) -> None:
+            """Core logic shared by all post commands."""
+            validation_error = self._validate_post_content(text)
+            if validation_error:
+                await interaction.response.send_message(validation_error, ephemeral=True)
+                return
+
+            await interaction.response.defer()
+            results: list[str] = []
+
+            try:
+                if post_to_bluesky:
+                    processed_text = self.bluesky.prepare_content(text)
+                    response = self.bluesky.post(processed_text)
+                    self.logger.log_post(response)
+                    results.append(f"✅ Bluesky\n**Posted text:**\n{processed_text}")
+
+                if post_to_telegram:
+                    await send_to_telegram(text)
+                    results.append(f"✅ Telegram\n**Posted text:**\n{text}")
+
+                await interaction.followup.send("\n\n".join(results))
+                logger.info("Post executed successfully by %s", interaction.user)
+
+            except Exception as e:
+                logger.exception("Failed to post")
+                await interaction.followup.send(f"❌ Failed to post: {e}")
+
+        # ── comandi slash ────────────────────────────────────────────────────
+
+        @self.bot.tree.command(name="bs_post", description="Post to Bluesky")
         @app_commands.describe(text="The text to post on Bluesky")
         async def slash_bs_post(interaction: discord.Interaction, text: str) -> None:
-            """Slash command to post to Bluesky.
-            
-            Args:
-                interaction: Discord interaction object
-                text: The text to post
-            """
-            # Validate input
-            validation_error = self._validate_post_content(text)
-            if validation_error:
-                await interaction.response.send_message(
-                    validation_error,
-                    ephemeral=True,
-                )
-                return
+            await _do_post(self, interaction, text, post_to_bluesky=True)
 
-            # Defer response (API call might take time)
-            await interaction.response.defer()
-
-            try:
-                # Process content
-                processed_text = self.bluesky.prepare_content(text)
-                
-                # Post to Bluesky
-                response = self.bluesky.post(processed_text)
-                
-                # Log the post
-                self.logger.log_post(response)
-                
-                # Send success feedback
-                await interaction.followup.send(
-                    f"✅ Successfully posted to Bluesky!\n\n**Posted text:**\n{processed_text}"
-                )
-                logger.info(f"Post command executed successfully by {interaction.user}")
-            except Exception as e:
-                logger.error(f"Failed to post: {e}")
-                await interaction.followup.send(
-                    f"❌ Failed to post to Bluesky: {str(e)}",
-                )
-        #-----TELEGRAM HANDLER-----
-        @self.bot.tree.command(name="tg_post",description="Post a message to Telegram",)
+        @self.bot.tree.command(name="tg_post", description="Post to Telegram")
         @app_commands.describe(text="The text to post on Telegram")
         async def slash_tg_post(interaction: discord.Interaction, text: str) -> None:
-            """Slash command to post a message to Telegram.
+            await _do_post(self, interaction, text, post_to_telegram=True)
 
-            Args:
-                interaction: The Discord interaction that invoked the command.
-                text: The text to send to Telegram.
-            """
-            # Validate input
-            validation_error = self._validate_post_content(text)
-            if validation_error:
-                await interaction.response.send_message(
-                    validation_error,
-                    ephemeral=True,
-                )
-                return
-
-            # Defer response because sending may take a moment
-            await interaction.response.defer()
-
-            try:
-                # Send the text to Telegram
-                await send_to_telegram(text)
-
-                # Send success feedback
-                await interaction.followup.send(
-                    f"✅ Successfully posted to Telegram!\n\n**Posted text:**\n{text}"
-                )
-
-                logger.info(
-                    "Telegram command executed successfully by %s",
-                    interaction.user,
-                )
-
-            except Exception as e:
-                logger.exception("Failed to post to Telegram")
-
-                await interaction.followup.send(
-                    f"❌ Failed to post to Telegram: {e}"
-                )
+        @self.bot.tree.command(name="post_all", description="Post to Bluesky AND Telegram")
+        @app_commands.describe(text="The text to post everywhere")
+        async def slash_post_all(interaction: discord.Interaction, text: str) -> None:
+            await _do_post(self, interaction, text, post_to_bluesky=True, post_to_telegram=True)
 
     @staticmethod
     def _validate_post_content(text: str) -> Optional[str]:
