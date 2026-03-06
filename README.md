@@ -6,7 +6,7 @@ A modular Discord bot that posts messages to Bluesky and Telegram using slash co
 
 - **Slash Commands**: Easy-to-use `/bs_post` command in Discord for Bluesky
 - **Slash Commands**: Easy-to-use `/tg_post` command in Discord for Telegram
-- **Slash Commands**: Easy-to-use `/all_post` command in Discord for Bluesky AND Telegram 
+- **Slash Commands**: Easy-to-use `/post_all` command in Discord for Bluesky AND Telegram 
 - **Bluesky Integration**: Automatically posts messages to Bluesky
 - **Logging**: Comprehensive logging with file persistence
 - **Input Validation**: Validates message length and content
