@@ -14,13 +14,13 @@ TG_TOKEN: str = cfg.config.telegram_token
 TG_CHANNEL: str = cfg.config.telegram_channel_id
 TG_FOOTER_TXT: str = cfg.config.telegram_footer_txt
 tg_bot = Bot(token=TG_TOKEN)
-
+tg_log_file: str = cfg.config.tg_log_file
 
 
 class TelegramLogger(bluesky_service.PostLogger):
     """Logger for storing Telegram message records in JSON format."""
 
-    def __init__(self, log_file: str = "tg_log.json") -> None:
+    def __init__(self, log_file: str = cfg.config.tg_log_file) -> None:
         """Initialise Telegram logger.
 
         Args:
