@@ -149,4 +149,4 @@ MIT
 
 ## CREDITS
 
-[ELXES04](https://github.com/Elxes04) nice friend and IT teacher
+[ELXES04](https://github.com/Elxes04), a great friend and IT teacher, helped take the project quality from the terrible state I left it in to a much higher level.
