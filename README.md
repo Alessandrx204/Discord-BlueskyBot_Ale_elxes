@@ -32,7 +32,7 @@ A modular Discord bot that posts messages to Bluesky and Telegram using slash co
 
 ### Prerequisites
 
-- Python 3.11+ (£.12 is reccomended)
+- Python 3.11+ (3.12 is reccomended)
 - Discord Bot Token
 - Bluesky Account (with App Password)
 
@@ -41,7 +41,7 @@ A modular Discord bot that posts messages to Bluesky and Telegram using slash co
 #### 1. Clone/Setup the Project
 
 ```bash
-cd ~/Documenti/Workspace/discord_bluesky_ale
+cd ~/Documents/Workspace/discord_bluesky_ale
 ```
 
 #### 2. Create Environment File
