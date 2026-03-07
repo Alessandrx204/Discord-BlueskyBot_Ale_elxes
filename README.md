@@ -40,8 +40,12 @@ A modular Discord bot that posts messages to Bluesky and Telegram using slash co
 
 #### 1. Clone/Setup the Project
 
+```
+git clone https://github.com/Alessandrx204/Discord-BlueskyBot_Ale_elxes
+```
+
 ```bash
-cd ~/Documents/Workspace/discord_bluesky_ale
+cd Discord-BlueskyBot_Ale_elxes
 ```
 
 #### 2. Create Environment File
