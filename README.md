@@ -86,12 +86,12 @@ python main.py
 
 ### Discord Command
 
-In Discord, use the `/post` command:
+In Discord, use the `/bs_post` command:
 
 ```
-/post Hello, this is my first Bluesky post!
+/bs_post Hello, this is my first Bluesky post!
 ```
-
+` /tg_post` is for telegram and `/post_all` for both.
 ### Features
 
 - **Max Length**: 300 characters (configurable via `MAX_POST_LENGTH`)
@@ -107,8 +107,9 @@ Edit `.env` to customize:
 # Maximum post length (default: 300)
 MAX_POST_LENGTH=300
 
-# Log file location (default: posts_log.json)
-LOG_FILE=posts_log.json
+# Log file location (default: Bluesky_log.json/Telegram_log.json)
+BS_LOG_FILE=Bluesky_log.json
+TG_LOG_FILE=Telegram_log.json
 
 # Logging level: DEBUG, INFO, WARNING, ERROR, CRITICAL (default: INFO)
 LOG_LEVEL=INFO
@@ -123,6 +124,7 @@ LOG_LEVEL=INFO
 - **bluesky_service.py**: Encapsulated Bluesky API interactions
 - **discord_bot.py**: Discord bot with slash commands
 - **main.py**: Application entry point with error handling
+- **telegram_service.py**: Encapsulated Telegram bot interactions
 
 ## Troubleshooting
 
@@ -131,6 +133,7 @@ Make sure all required variables are set in `.env`:
 - `DISCORD_TOKEN`
 - `BLUESKY_USERNAME`
 - `BLUESKY_PASSWORD`
+- `TELEGRAM_TOKEN`(optional)
 
 ### "Failed to authenticate with Bluesky"
 Check your Bluesky credentials. Use an **App Password**, not your main password.
