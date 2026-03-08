@@ -66,11 +66,21 @@ TG_USERNAME=your telegram bot handle(Optional)
 BS_FOOTER_TXT=a footer text to apply to every post you make on bluesky social(can be a slogan a disclaime, and adv or empy string)
 TG_FOOTER_TXT= Same as BS_FOOTER_TXT but for Telegram posts
 ```
+#### 2a. Create a Python Virtual Environment (venv)
 
+It is recommended to use a virtual environment to isolate dependencies:
+
+```bash
+python -m venv venv        # Create the venv
+# Activate it:
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
 #### 3a. On NixOS
 
 ```bash
-nix-shell --run "python main.py"
+nix-shell --run "python main.pi"
 ```
 
 Or enter the dev environment:
