@@ -20,7 +20,7 @@ A modular Discord bot that posts messages to Bluesky and Telegram using slash co
 ├── config.py            # Configuration management
 ├── logger.py            # Logging setup
 ├── bluesky_service.py   # Bluesky API service via Atproto
-├── telegram_service.py   # Telegram bot API service via Python-telegram-bot lib
+├── telegram_service.py  # Telegram bot API service via Python-telegram-bot lib
 ├── discord_bot.py       # Discord bot implementation
 ├── main.py              # Application entry point
 ├── shell.nix            # NixOS development environment
